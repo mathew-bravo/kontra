@@ -2,7 +2,7 @@
 
 **Contracts as code.** A DSL and runtime engine that turns legal agreements into executable specifications you can compile, evaluate, simulate, diff, and query.
 
-Built for the 2026 hackathon. ~6,400 lines of Rust. 109 tests. No parser generators — hand-rolled scanner and compiler following the [Crafting Interpreters](https://craftinginterpreters.com/) architecture.
+Built for the 2026 hackathon. ~6,400 lines of Rust. 109 tests. No parser generators  hand-rolled scanner and compiler following the [Crafting Interpreters](https://craftinginterpreters.com/) architecture.
 
 ---
 
@@ -14,7 +14,7 @@ You can't test a contract. You can't simulate what happens if a deadline slips. 
 
 ## What it does
 
-kontra is a domain-specific language where obligations, conditions, deadlines, remedies, and termination clauses are formal constructs that a machine can evaluate. The contract is still a contract — it expresses the agreement between parties — but now it can also be:
+kontra is a domain-specific language where obligations, conditions, deadlines, remedies, and termination clauses are formal constructs that a machine can evaluate. The contract is still a contract  it expresses the agreement between parties  but now it can also be:
 
 - **Compiled** and structurally validated
 - **Evaluated** at any point in time to see which obligations are active, satisfied, or breached
@@ -39,7 +39,7 @@ cargo run -- run examples/software_license.k
 
 ## The DSL
 
-Here's a real contract written in `.k` syntax — a software license agreement between two parties:
+Here's a real contract written in `.k` syntax a software license agreement between two parties:
 
 ```
 contract SoftwareLicense {
@@ -91,7 +91,7 @@ contract SoftwareLicense {
 }
 ```
 
-Parties, events, terms, obligations, remedies, phases — all declared, all executable. Comments use `--`.
+Parties, events, terms, obligations, remedies, phases all declared, all executable. Comments use `--`.
 
 ---
 
@@ -99,7 +99,7 @@ Parties, events, terms, obligations, remedies, phases — all declared, all exec
 
 kontra ships six commands. Every example below uses real output from the working binary.
 
-### `run` — compile and summarize
+### `run`  compile and summarize
 
 Parse a `.k` file, compile it through the full pipeline, and print the contract's structural model.
 
@@ -118,11 +118,11 @@ Phases (2): CureOrTerminate.Cure, CureOrTerminate.Terminate
 
 This proves the contract is parsed and executed semantics, not static text.
 
-### `eval` — evaluate contract state at a point in time
+### `eval`  evaluate contract state at a point in time
 
 Trigger events with concrete dates and see what the contract looks like on a given day.
 
-**Happy path** — delivery happened, acceptance was given, obligations are active:
+**Happy path**  delivery happened, acceptance was given, obligations are active:
 
 ```bash
 kontra eval examples/software_license.k \
@@ -141,7 +141,7 @@ LateFee: PENDING (blocked - condition not met)
 PayLicenseFee: ACTIVE (due 2026-04-09)
 ```
 
-**Breach progression** — no delivery, deadline passes, cure period expires, termination activates:
+**Breach progression**  no delivery, deadline passes, cure period expires, termination activates:
 
 ```bash
 kontra eval examples/software_license.k \
@@ -158,9 +158,9 @@ LateFee: PENDING (blocked - condition not met)
 PayLicenseFee: PENDING (blocked - condition not met)
 ```
 
-The engine captures downstream legal mechanics — breach cascades through remedy phases automatically.
+The engine captures downstream legal mechanics  breach cascades through remedy phases automatically.
 
-### `simulate` — non-destructive what-if scenarios
+### `simulate`  non-destructive what-if scenarios
 
 Fork the contract state, apply hypothetical events, and compare baseline vs. simulated outcomes side-by-side. The canonical state is never mutated.
 
@@ -190,9 +190,9 @@ PayLicenseFee: PENDING (blocked - condition not met)
 
 Teams can test operational scenarios before legal or business commitments are made.
 
-### `diff` — semantic contract comparison with risk warnings
+### `diff` semantic contract comparison with risk warnings
 
-Compare two contract versions structurally — not as plain text, but as semantic deltas with automated risk detection.
+Compare two contract versions structurally not as plain text, but as semantic deltas with automated risk detection.
 
 ```bash
 kontra diff examples/software_license_v1.k examples/software_license_v2.k
@@ -200,7 +200,7 @@ kontra diff examples/software_license_v1.k examples/software_license_v2.k
 
 ```
 REMOVED: TERM CurePeriod
-CHANGED: TERM DeliveryPeriod — duration.amount: 30 -> 45
+CHANGED: TERM DeliveryPeriod  duration.amount: 30 -> 45
 ADDED: OBLIGATION AuditRights
 REMOVED: REMEDY CureOrTerminate
 REMOVED: PHASE CureOrTerminate.Cure
@@ -211,11 +211,11 @@ WARNING: removed remedy phase 'CureOrTerminate.Cure'
 WARNING: removed remedy phase 'CureOrTerminate.Terminate'
 ```
 
-The delivery window got extended from 30 to 45 business days. An audit right was added. But the entire cure-or-terminate remedy was removed — meaning a breach of `DeliverSoftware` now has no recourse. That's the kind of thing that gets missed in redlines.
+The delivery window got extended from 30 to 45 business days. An audit right was added. But the entire cure-or-terminate remedy was removed  meaning a breach of `DeliverSoftware` now has no recourse. That's the kind of thing that gets missed in redlines.
 
-### `cascade` — trace downstream breach impact
+### `cascade` trace downstream breach impact
 
-Given a breached obligation, deterministically trace every downstream effect — which remedies fire, which phases activate, which due dates shift.
+Given a breached obligation, deterministically trace every downstream effect which remedies fire, which phases activate, which due dates shift.
 
 ```bash
 kontra cascade examples/software_license.k DeliverSoftware
@@ -231,7 +231,7 @@ Cascade from 'DeliverSoftware':
 
 Explainability for legal and operational decision-making.
 
-### `repl` — interactive session
+### `repl`  interactive session
 
 Load a contract, trigger events, query state, simulate, and trace cascades interactively.
 
@@ -264,7 +264,7 @@ Cascade from 'DeliverSoftware':
 
 ## Architecture
 
-The pipeline follows the Crafting Interpreters Part II design — no AST, single-pass compilation to bytecode, then VM execution:
+The pipeline follows the Crafting Interpreters Part II design no AST, single-pass compilation to bytecode, then VM execution:
 
 ```
 source.k → scanner → compiler → bytecode chunk → VM → ContractDef → runtime engine
@@ -273,15 +273,15 @@ source.k → scanner → compiler → bytecode chunk → VM → ContractDef → 
 | Module | Role |
 |---|---|
 | `scanner.rs` + `token.rs` | On-demand lexer with spans for error reporting |
-| `compiler.rs` | Single-pass recursive descent — parses tokens and emits bytecode directly |
+| `compiler.rs` | Single-pass recursive descent parses tokens and emits bytecode directly |
 | `chunk.rs` | Bytecode container: opcodes, constant pool, source line mapping |
 | `vm.rs` | Executes bytecode into a fully populated `ContractDef` |
-| `engine.rs` | Runtime state machine — obligation lifecycle, event evaluation, deadline computation, simulation, breach cascade |
+| `engine.rs` | Runtime state machine obligation lifecycle, event evaluation, deadline computation, simulation, breach cascade |
 | `diff.rs` | Normalized semantic contract comparison and risk warning generation |
 | `calendar.rs` + `config.rs` | Business-day arithmetic with configurable holiday calendars and jurisdiction support |
 | `main.rs` | CLI surface: `run`, `eval`, `simulate`, `diff`, `cascade`, `repl` |
 
-Obligations follow a state machine: `Pending → Active → Satisfied | Breached → Remedied`. The engine runs a fixed-point evaluation loop — it keeps transitioning states until nothing changes, which is how breach cascades propagate through remedy phases automatically.
+Obligations follow a state machine: `Pending → Active → Satisfied | Breached → Remedied`. The engine runs a fixed-point evaluation loop it keeps transitioning states until nothing changes, which is how breach cascades propagate through remedy phases automatically.
 
 Time is first-class. Business days and calendar days are distinct. Deadlines are jurisdiction-aware through configurable calendar registries with holiday support.
 
@@ -291,12 +291,12 @@ Time is first-class. Business days and calendar days are distinct. Deadlines are
 
 The companion **[kontra-lsp](https://github.com/mathew-bravo/kontra-lsp)** project provides Language Server Protocol support for `.k` files:
 
-- **Diagnostics** — real-time compile errors as you type, clearing when fixed
-- **Autocomplete** — DSL keywords (`contract`, `obligation`, `remedy`, `breach_of`, ...) and snippet templates for common patterns
-- **Hover docs** — inline documentation for functions like `after()`, `satisfied()`, `business_days`
-- **Neovim integration** — documented local setup with `nvim-lspconfig`
+- **Diagnostics**  real-time compile errors as you type, clearing when fixed
+- **Autocomplete**  DSL keywords (`contract`, `obligation`, `remedy`, `breach_of`, ...) and snippet templates for common patterns
+- **Hover docs**  inline documentation for functions like `after()`, `satisfied()`, `business_days`
+- **Neovim integration**  documented local setup with `nvim-lspconfig`
 
-The LSP reuses kontra's compiler and scanner directly — same error messages, same validation, zero divergence.
+The LSP reuses kontra's compiler and scanner directly same error messages, same validation, zero divergence.
 
 ---
 
@@ -324,9 +324,9 @@ A term defined as `5 business_days from Effective` will skip weekends and config
 
 ## Built with
 
-- **Rust** (2024 edition) — the entire system is a single crate with no parser generators
-- **chrono** — date arithmetic
-- **Hand-rolled scanner and compiler** — following Crafting Interpreters Chapters 16-25, adapted for a declarative contract DSL instead of an imperative language
+- **Rust** (2024 edition) the entire system is a single crate with no parser generators
+- **chrono**  date arithmetic
+- **Hand-rolled scanner and compiler**  following Crafting Interpreters Chapters 16-25, adapted for a declarative contract DSL instead of an imperative language
 - **109 tests** across scanner, compiler, VM, engine, diff, calendar, and CLI modules
 
 ```bash
