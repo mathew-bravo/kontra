@@ -8,11 +8,9 @@ Built for the 2026 hackathon. ~6,400 lines of Rust. 109 tests. No parser generat
 
 ## The problem
 
-Contracts are the atomic unit of legal work. Every deal, every engagement, every relationship between parties comes down to a contract. But contracts are written in natural language — ambiguous by nature, impossible to run, and requiring expensive human interpretation to answer even basic questions like *"what happens if the vendor is 15 days late?"*
+Contracts are the atomic unit of legal work. Every deal, every engagement, every relationship between parties comes down to a contract. But contracts are written in natural language ambiguous by nature, impossible to run, and requiring expensive human interpretation to answer even basic questions like *"what happens if the vendor is 15 days late?"*
 
 You can't test a contract. You can't simulate what happens if a deadline slips. You can't diff two versions and see which obligations changed, which remedies disappeared, or where new risk was introduced.
-
-**kontra** fixes that.
 
 ## What it does
 
