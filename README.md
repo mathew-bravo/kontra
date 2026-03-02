@@ -335,9 +335,3 @@ A term defined as `5 business_days from Effective` will skip weekends and config
 cargo test
 # test result: ok. 109 passed; 0 failed
 ```
-
----
-
-## What matters
-
-This isn't just parsing contract text. kontra executes obligations over time, simulates outcomes before decisions are made, detects risky negotiation edits, and explains downstream breach impact with deterministic output. That's the shift from static documents to operational legal infrastructure.
