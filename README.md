@@ -2,7 +2,7 @@
 
 **Contracts as code.** A DSL and runtime engine that turns legal agreements into executable specifications you can compile, evaluate, simulate, diff, and query.
 
-Built for the 2026 hackathon. ~6,400 lines of Rust. 109 tests. No parser generators  hand-rolled scanner and compiler following the [Crafting Interpreters](https://craftinginterpreters.com/) architecture.
+Built for the 2026 hackathon. No parser generators hand-rolled scanner and compiler following the [Crafting Interpreters](https://craftinginterpreters.com/) architecture.
 
 ---
 
